@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Торговый центр.dbo.Аренда" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Аренда">
+          <Key>
+            <PropertyRef Name="ID арендатора" />
+            <PropertyRef Name="Номер договора" />
+          </Key>
+          <Property Name="ID арендатора" Type="int" Nullable="false" />
+          <Property Name="Номер договора" Type="int" Nullable="false" />
+          <Property Name="Цель аренды" Type="nvarchar" MaxLength="255" />
+          <Property Name="Телефон" Type="nvarchar" MaxLength="255" />
+          <Property Name="ФИО" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Торговый центр.dbo.Выборка №1" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "Торговый центр.dbo.Групповая операция №1" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Групповая операция №1">
+          <Property Name="Sum-Сумма" Type="money" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Торговый центр.dbo.Договора" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Договора">
+          <Key>
+            <PropertyRef Name="ID Оплаты" />
+            <PropertyRef Name="Номер договора" />
+          </Key>
+          <Property Name="ID Оплаты" Type="int" Nullable="false" />
+          <Property Name="Номер договора" Type="int" Nullable="false" />
+          <Property Name="Дата заключения" Type="datetime" />
+          <Property Name="Дата расторжения" Type="datetime" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Торговый центр.dbo.Оплата" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Оплата">
+          <Key>
+            <PropertyRef Name="ID Оплаты" />
+          </Key>
+          <Property Name="ID Оплаты" Type="int" Nullable="false" />
+          <Property Name="Дата оплаты" Type="datetime" />
+          <Property Name="Сумма" Type="money" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Торговый центр.dbo.Участки" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Участки">
+          <Key>
+            <PropertyRef Name="ID Арендатора" />
+          </Key>
+          <Property Name="ID Арендатора" Type="int" Nullable="false" />
+          <Property Name="Магазин" Type="nvarchar" MaxLength="255" />
+          <Property Name="Площадь" Type="int" />
+          <Property Name="Дата начала аренды" Type="datetime" />
+          <Property Name="Дата окончания аренды" Type="datetime" />
+          <Property Name="Услуги" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="Аренда" EntityType="Self.Аренда" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Аренда].[ID арендатора] AS [ID арендатора], 
+    [Аренда].[Номер договора] AS [Номер договора], 
+    [Аренда].[Цель аренды] AS [Цель аренды], 
+    [Аренда].[Телефон] AS [Телефон], 
+    [Аренда].[ФИО] AS [ФИО]
+    FROM [dbo].[Аренда] AS [Аренда]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Договора" EntityType="Self.Договора" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Договора].[ID Оплаты] AS [ID Оплаты], 
+    [Договора].[Номер договора] AS [Номер договора], 
+    [Договора].[Дата заключения] AS [Дата заключения], 
+    [Договора].[Дата расторжения] AS [Дата расторжения]
+    FROM [dbo].[Договора] AS [Договора]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Оплата" EntityType="Self.Оплата" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Оплата].[ID Оплаты] AS [ID Оплаты], 
+    [Оплата].[Дата оплаты] AS [Дата оплаты], 
+    [Оплата].[Сумма] AS [Сумма]
+    FROM [dbo].[Оплата] AS [Оплата]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Участки" EntityType="Self.Участки" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Участки].[ID Арендатора] AS [ID Арендатора], 
+    [Участки].[Магазин] AS [Магазин], 
+    [Участки].[Площадь] AS [Площадь], 
+    [Участки].[Дата начала аренды] AS [Дата начала аренды], 
+    [Участки].[Дата окончания аренды] AS [Дата окончания аренды], 
+    [Участки].[Услуги] AS [Услуги]
+    FROM [dbo].[Участки] AS [Участки]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Аренда">
+          <Key>
+            <PropertyRef Name="ID_арендатора" />
+            <PropertyRef Name="Номер_договора" />
+          </Key>
+          <Property Name="ID_арендатора" Type="Int32" Nullable="false" />
+          <Property Name="Номер_договора" Type="Int32" Nullable="false" />
+          <Property Name="Цель_аренды" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Телефон" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ФИО" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Договора">
+          <Key>
+            <PropertyRef Name="ID_Оплаты" />
+            <PropertyRef Name="Номер_договора" />
+          </Key>
+          <Property Name="ID_Оплаты" Type="Int32" Nullable="false" />
+          <Property Name="Номер_договора" Type="Int32" Nullable="false" />
+          <Property Name="Дата_заключения" Type="DateTime" Precision="3" />
+          <Property Name="Дата_расторжения" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Оплата">
+          <Key>
+            <PropertyRef Name="ID_Оплаты" />
+          </Key>
+          <Property Name="ID_Оплаты" Type="Int32" Nullable="false" />
+          <Property Name="Дата_оплаты" Type="DateTime" Precision="3" />
+          <Property Name="Сумма" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Участки">
+          <Key>
+            <PropertyRef Name="ID_Арендатора" />
+          </Key>
+          <Property Name="ID_Арендатора" Type="Int32" Nullable="false" />
+          <Property Name="Магазин" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Площадь" Type="Int32" />
+          <Property Name="Дата_начала_аренды" Type="DateTime" Precision="3" />
+          <Property Name="Дата_окончания_аренды" Type="DateTime" Precision="3" />
+          <Property Name="Услуги" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="Торговый_центрEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Аренда" EntityType="Self.Аренда" />
+          <EntitySet Name="Договора" EntityType="Self.Договора" />
+          <EntitySet Name="Оплата" EntityType="Self.Оплата" />
+          <EntitySet Name="Участки" EntityType="Self.Участки" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Торговый_центрEntities">
+          <EntitySetMapping Name="Аренда">
+            <EntityTypeMapping TypeName="Model.Аренда">
+              <MappingFragment StoreEntitySet="Аренда">
+                <ScalarProperty Name="ID_арендатора" ColumnName="ID арендатора" />
+                <ScalarProperty Name="Номер_договора" ColumnName="Номер договора" />
+                <ScalarProperty Name="Цель_аренды" ColumnName="Цель аренды" />
+                <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Договора">
+            <EntityTypeMapping TypeName="Model.Договора">
+              <MappingFragment StoreEntitySet="Договора">
+                <ScalarProperty Name="ID_Оплаты" ColumnName="ID Оплаты" />
+                <ScalarProperty Name="Номер_договора" ColumnName="Номер договора" />
+                <ScalarProperty Name="Дата_заключения" ColumnName="Дата заключения" />
+                <ScalarProperty Name="Дата_расторжения" ColumnName="Дата расторжения" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Оплата">
+            <EntityTypeMapping TypeName="Model.Оплата">
+              <MappingFragment StoreEntitySet="Оплата">
+                <ScalarProperty Name="ID_Оплаты" ColumnName="ID Оплаты" />
+                <ScalarProperty Name="Дата_оплаты" ColumnName="Дата оплаты" />
+                <ScalarProperty Name="Сумма" ColumnName="Сумма" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Участки">
+            <EntityTypeMapping TypeName="Model.Участки">
+              <MappingFragment StoreEntitySet="Участки">
+                <ScalarProperty Name="ID_Арендатора" ColumnName="ID Арендатора" />
+                <ScalarProperty Name="Магазин" ColumnName="Магазин" />
+                <ScalarProperty Name="Площадь" ColumnName="Площадь" />
+                <ScalarProperty Name="Дата_начала_аренды" ColumnName="Дата начала аренды" />
+                <ScalarProperty Name="Дата_окончания_аренды" ColumnName="Дата окончания аренды" />
+                <ScalarProperty Name="Услуги" ColumnName="Услуги" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
